@@ -1,8 +1,8 @@
-### Golang-powered backend web development:
+### Golang-powered backend development:
 
 ---
 
-#### Tech Leveraged in this mini project
+#### Tech Leveraged in this mini project:
 
 ---
 
