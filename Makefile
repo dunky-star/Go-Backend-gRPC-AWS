@@ -7,7 +7,9 @@ dropdb:
 	docker exec -it postgres_container dropdb --username=postgres u_bank
 
 migrateup:
-	migrate -path db/migration -database "postgresql://postgres:cluster@1@localhost:5432/u_bank?sslmode=disable" -verbose  up
+	migrate -path u_bank/db/migration -database "postgresql://postgres:cluster@1@localhost:5432/u_bank?sslmode=disable" -verbose up
 
 migratedown:
-	migrate -path db/migration -database "postgresql://postgres:cluster@1@localhost:5432/u_bank?sslmode=disable" -verbose  down
+	migrate -path u_bank/db/migration -database "postgresql://postgres:cluster@1@localhost:5432/u_bank?sslmode=disable" -verbose down
+
+.PHONY: postgres createdb dropdb migrateup migratedown
