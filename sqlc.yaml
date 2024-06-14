@@ -1,4 +1,6 @@
 version: "2"
+cloud:
+  project: "<u_bank>"
 sql:
   - engine: "postgresql"
     schema: "./db/migration/"
