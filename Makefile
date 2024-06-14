@@ -12,4 +12,7 @@ migrateup:
 migratedown:
 	migrate -path u_bank/db/migration -database "postgresql://postgres:cluster@1@localhost:5432/u_bank?sslmode=disable" -verbose down
 
-.PHONY: postgres createdb dropdb migrateup migratedown
+sqlc:
+	sqlc generate
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc
