@@ -39,8 +39,8 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: "1.20"
-      # For the DB migration Makefile to run
-      - name: Run migrations
+      # For the DB migration Makefile
+      - name: Run make migration
         run: make migrateup
       #- name: Build
       # run: go build -v ./...
