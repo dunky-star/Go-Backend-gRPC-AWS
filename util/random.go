@@ -11,7 +11,7 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz"
 var globalRand *rand.Rand
 
 func init() {
-		// Create a new source and a new rand.Rand instance
+		// Create a new source and a new rand.Rand instance -Go
 		src := rand.NewSource(time.Now().UnixNano())
 		globalRand = rand.New(src)
 }
