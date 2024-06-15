@@ -39,6 +39,11 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: "1.20"
+
+      - name: Install migrate tool
+        run: |
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate /usr/local/bin/
       # For the DB migration Makefile
       - name: Run make migration
         run: make migrateup
