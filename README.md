@@ -6,15 +6,14 @@
 
 ---
 
-- **Go** 
-- **Postgres** 
-- **Redis** 
-- **Gin** 
-- **gRPC** 
-- **Docker** 
-- **Kubernetes** 
-- **AWS - EKS Cluster** 
-- **CI/CD pipelines** 
+- **Go**
+- **Postgres**
+- **Redis**
+- **Gin**
+- **gRPC**
+- **Docker**
+- **Kubernetes**
+- **AWS - EKS Cluster**
+- **CI/CD pipelines - GitHub Actions**
 - **Security: JWT and PASETO access tokens, HTTPS, TLS**
 - And many more...
-
