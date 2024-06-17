@@ -1,0 +1,7 @@
+POST http://localhost:9090/api/v1/accounts
+content-type: application/json
+
+{
+    "owner": "Geoffrey Opiyo",
+    "currency": "UGX"
+}
