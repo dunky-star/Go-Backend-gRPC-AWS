@@ -1,0 +1,9 @@
+POST http://localhost:9090/api/v1/users
+content-type: application/json
+
+{
+    "username": "dunc",
+    "full_name": "Geoffrey D.",
+    "email": "dunc@mail.com",
+    "password": "secret"
+}
