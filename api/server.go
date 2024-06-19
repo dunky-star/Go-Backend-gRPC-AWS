@@ -1,7 +1,11 @@
 package api
 
 import (
+	"fmt"
+
 	db "github.com/dunky-star/u_bank/sqlc"
+	"github.com/dunky-star/u_bank/token"
+	"github.com/dunky-star/u_bank/util"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
@@ -9,28 +13,47 @@ import (
 
 // Server serves HTTP requests for our banking service.
 type Server struct {
+    config util.Config
     store  db.Store
+    tokenMaker token.Maker
     router *gin.Engine
 }
 
 // NewServer creates a new HTTP server and setup routing.
-func NewServer(store db.Store) *Server {
-    server := &Server{store: store}
-    router := gin.Default()
+func NewServer(config util.Config, store db.Store) (*Server, error) {
+    tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+    if err != nil{
+        return nil, fmt.Errorf("Cannot create token maker %w", err)
+    }
+    server := &Server{
+        config: config,
+        store: store,
+        tokenMaker: tokenMaker,
+    }
 
     if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
         v.RegisterValidation("currency", validCurrency)
     }
     
-    router.POST("/api/v1/users", server.createUser)
-    router.POST("/api/v1/accounts", server.createAccount)
-	router.GET("/api/v1/accounts/:id", server.getAccount)
-	router.GET("/api/v1/accounts", server.listAccount)
-    router.POST("/api/v1/transfers", server.createTransfer)
+    server.setupRouter()
 
+    return server, nil
+}
+
+func (server *Server) setupRouter() {
+	router := gin.Default()
+
+    router.POST("/api/v1/users", server.createUser)
+    router.POST("/api/v1/users/login", server.loginUser)
+
+    authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
+
+    authRoutes.POST("/api/v1/accounts", server.createAccount)
+	authRoutes.GET("/api/v1/accounts/:id", server.getAccount)
+	authRoutes.GET("/api/v1/accounts", server.listAccount)
+    authRoutes.POST("/api/v1/transfers", server.createTransfer)
 
     server.router = router
-    return server
 }
 
 // Start runs the Http server on a specific address
