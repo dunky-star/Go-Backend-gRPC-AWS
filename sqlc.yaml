@@ -1,6 +1,6 @@
 version: "2"
 #cloud:
-# project: "<u_bank>"
+# project: "comment"
 sql:
   - engine: "postgresql"
     schema: "./db/migration/"
