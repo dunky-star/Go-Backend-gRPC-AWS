@@ -15,5 +15,5 @@
 - **Kubernetes**
 - **AWS - EKS Cluster**
 - **CI/CD pipelines - GitHub Actions**
-- **Security: JWT and PASETO access tokens, HTTPS, TLS**
+- **Security: JWT and PASETO access tokens + refresh token, HTTPS, TLS**
 - And many more...
