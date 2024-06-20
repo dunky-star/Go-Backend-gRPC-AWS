@@ -5,7 +5,7 @@ COPY . .
 RUN go build -o main main.go
 
 #RUN stage
-FROM alpine
+FROM golang:1.22-alpine
 WORKDIR /app
 COPY --from=builder /app/main .
 EXPOSE 9090
