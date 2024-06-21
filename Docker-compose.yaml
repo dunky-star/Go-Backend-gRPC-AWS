@@ -4,13 +4,15 @@ services:
     container_name: u_bank_db
     image: postgres:14-alpine
     environment:
-      - POSTGRES_USER=root
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=Cluster@1
       - POSTGRES_DB=u_bank
     ports:
       - "5432:5432"
     networks:
       - ubank
+    #volumes:
+    #  - data-volume:/var/lib/postgresql/data
   api:
     container_name: u_bank_api
     build:
@@ -19,7 +21,7 @@ services:
     ports:
       - "8080:9090"
     environment:
-      - DB_SOURCE=postgresql://root:Cluster@1@postgres:5432/u_bank?sslmode=disable
+      - DB_SOURCE=postgresql://postgres:Cluster@1@postgres:5432/u_bank?sslmode=disable
     networks:
       - ubank
     depends_on:
