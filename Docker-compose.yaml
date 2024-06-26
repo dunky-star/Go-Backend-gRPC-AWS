@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: u_bank_db
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Cluster@1
+      - POSTGRES_DB=u_bank
+    ports:
+      - "5432:5432"
+    networks:
+      - ubank
+    #volumes:
+    #  - data-volume:/var/lib/postgresql/data
+  api:
+    container_name: u_bank_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:9090"
+    environment:
+      - DB_SOURCE=postgresql://postgres:Cluster@1@postgres:5432/u_bank?sslmode=disable
+    networks:
+      - ubank
+    depends_on:
+      - postgres
+    entrypoint: ["/app/wait-for.sh", "postgres:5432", "--", "/app/start.sh"]
+    command: ["/app/main"]
+
+networks:
+  ubank:
+    driver: bridge
